@@ -19,7 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
  * 
  * @author Khyber Sen
  */
-public class Board extends Actor implements Loggable {
+public class Board extends Actor implements Debuggable {
     
     private static final float MARGIN_PERCENT = 0.25f;
     
@@ -85,7 +85,11 @@ public class Board extends Actor implements Loggable {
         }
         
         public void draw(final Batch batch) {
-            batch.draw(selected ? selectedTexture : texture, getX() + x, getY() + y);
+            final TextureRegion region = selected ? selectedTexture : texture;
+            final float scaleX = getScaleX();
+            final float scaleY = getScaleY();
+            batch.draw(region, x * scaleX + getX(), y * scaleY + getY(),
+                    region.getRegionWidth() * scaleX, region.getRegionHeight() * scaleY);
         }
         
         @Override
@@ -123,7 +127,7 @@ public class Board extends Actor implements Loggable {
      * 
      * @author Khyber Sen
      */
-    private class LetterListener extends ClickListener implements Loggable {
+    private class LetterListener extends ClickListener implements Debuggable {
         
         @Override
         public void clicked(final InputEvent event, final float x, final float y) {
@@ -142,6 +146,7 @@ public class Board extends Actor implements Loggable {
                 final Letter letter = rows[i][j];
                 if (letter == selectedLetter) {
                     letter.selected = false;
+                    selectedLetter = null;
                 } else {
                     swap(letter, selectedLetter);
                     letter.selected = false;

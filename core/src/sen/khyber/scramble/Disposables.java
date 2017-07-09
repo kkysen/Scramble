@@ -12,8 +12,8 @@ public class Disposables {
     
     private static final Array<Disposable> disposables = new Array<>();
     
-    public static void add(final Disposable texture) {
-        disposables.add(texture);
+    public static void add(final Disposable disposable) {
+        disposables.add(disposable);
     }
     
     public static void dispose() {

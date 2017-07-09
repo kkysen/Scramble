@@ -7,7 +7,7 @@ package sen.khyber.scramble;
  */
 public class Constants {
     
-    public static final int APP_WIDTH = 1600;
-    public static final int APP_HEIGHT = 1600;
+    public static final int APP_WIDTH = 1200;
+    public static final int APP_HEIGHT = 1200;
     
 }

@@ -5,7 +5,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -39,30 +38,19 @@ public class Lexicon {
     
     private final Set<String> words;
     private final Map<Integer, List<String>> wordsByLength;
-    private final Map<Integer, Set<String>> wordSetByLength;
     
     private Map<Integer, List<String>> wordsByLength() {
         return words.stream().collect(Collectors.groupingBy(String::length));
     }
     
-    private Map<Integer, Set<String>> wordSetByLength() {
-        final Map<Integer, Set<String>> map = new HashMap<>(wordsByLength.size());
-        for (final Entry<Integer, List<String>> entry : wordsByLength.entrySet()) {
-            map.put(entry.getKey(), new HashSet<>(entry.getValue()));
-        }
-        return map;
-    }
-    
     public Lexicon(final Collection<String> words) {
         this.words = new HashSet<>(words);
         wordsByLength = wordsByLength();
-        wordSetByLength = wordSetByLength();
     }
     
     public Lexicon(final Path path) throws IOException {
         words = Files.lines(path).collect(Collectors.toSet());
         wordsByLength = wordsByLength();
-        wordSetByLength = wordSetByLength();
     }
     
     public boolean isWord(final String word) {
@@ -75,6 +63,16 @@ public class Lexicon {
             return null;
         }
         return words.get(ThreadLocalRandom.current().nextInt(words.size()));
+    }
+    
+    @Override
+    public String toString() {
+        return wordsByLength
+                .entrySet()
+                .stream()
+                .sorted((e1, e2) -> e1.getKey().compareTo(e2.getKey()))
+                .map(Entry::toString)
+                .collect(Collectors.joining("\n"));
     }
     
 }
