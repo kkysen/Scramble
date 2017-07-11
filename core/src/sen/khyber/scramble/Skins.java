@@ -1,11 +1,16 @@
 package sen.khyber.scramble;
 
+import java.nio.file.Paths;
+
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
+import com.badlogic.gdx.scenes.scene2d.ui.CheckBox.CheckBoxStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar.ProgressBarStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -14,11 +19,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
+import lombok.experimental.ExtensionMethod;
+
 /**
  * 
  * 
  * @author Khyber Sen
  */
+@ExtensionMethod({Assets.class})
 public class Skins {
     
     private static Skin INSTANCE;
@@ -54,15 +62,19 @@ public class Skins {
         final ProgressBarStyle timerStyle = new ProgressBarStyle(gray, green);
         skin.add("timerStyle", timerStyle);
         
-        final BitmapFont font = new BitmapFont();
-        font.getData().setScale(2);
+        final FreeTypeFontGenerator fontGenerator = new FreeTypeFontGenerator(
+                Paths.get("fonts", "times-new-roman.ttf").asset());
+        final FreeTypeFontParameter fontParameter = new FreeTypeFontParameter();
+        fontParameter.size = 96;
+        final BitmapFont font = fontGenerator.generateFont(fontParameter);
+        fontGenerator.dispose();
+        font.getData().setScale(.5f);
         skin.add("font", font);
         
         skin.add("labelStyle", new LabelStyle(font, Color.WHITE));
         
-        final Drawable textButtonBackground = skin.newDrawable(white, Color.BROWN);
-        final TextButtonStyle textButtonStyle = new TextButtonStyle(textButtonBackground,
-                textButtonBackground, gray, font);
+        final Drawable brown = skin.newDrawable(white, Color.BROWN);
+        final TextButtonStyle textButtonStyle = new TextButtonStyle(brown, brown, gray, font);
         skin.add("textButtonStyle", textButtonStyle);
         
         final Drawable black = skin.newDrawable(white, Color.BLACK);
@@ -70,6 +82,8 @@ public class Skins {
         final TextFieldStyle textFieldStyle = new TextFieldStyle(font, Color.BLACK, black, blue,
                 white);
         skin.add("textFieldStyle", textFieldStyle);
+        
+        skin.add("isTimedCheckBoxStyle", new CheckBoxStyle(gray, green, font, Color.WHITE));
         
         return skin;
     }

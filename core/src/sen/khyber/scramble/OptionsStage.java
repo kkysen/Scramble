@@ -1,6 +1,8 @@
 package sen.khyber.scramble;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
+import com.badlogic.gdx.scenes.scene2d.ui.CheckBox.CheckBoxStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -18,6 +20,7 @@ public class OptionsStage extends FitStage {
     private final Label scrambleLabel;
     private final IntField boardSizeInput;
     private final TextButton playButton;
+    private final CheckBox isTimedCheckBox;
     
     public OptionsStage(final Batch batch, final StageScreen<? extends OptionsStage> screen) {
         super(batch, screen);
@@ -40,9 +43,16 @@ public class OptionsStage extends FitStage {
         playButton.setBounds(width * .4f, height * .3f, width * .2f, height * .1f);
         addActor(playButton);
         
+        isTimedCheckBox = new CheckBox("Timed Game",
+                skin.get("isTimedCheckBoxStyle", CheckBoxStyle.class));
+        isTimedCheckBox.setBounds(width * .4f, height * .15f, width * .2f, height * .1f);
+        addActor(isTimedCheckBox);
+        isTimedCheckBox.setChecked(true);
+        
         System.out.println(scrambleLabel);
         System.out.println(boardSizeInput);
         System.out.println(playButton);
+        System.out.println(isTimedCheckBox);
     }
     
     @Override
@@ -52,6 +62,10 @@ public class OptionsStage extends FitStage {
     
     public int getBoardSize() {
         return boardSizeInput.getInt();
+    }
+    
+    public boolean isTimed() {
+        return isTimedCheckBox.isChecked();
     }
     
     @Override

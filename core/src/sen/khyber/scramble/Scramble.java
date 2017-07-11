@@ -41,6 +41,7 @@ public class Scramble extends Game {
         super.render();
         if (getScreen() == optionsScreen && options.isFinished()) {
             scramble.createBoard(options.getBoardSize());
+            scramble.resetTimer(options.isTimed());
             setScreen(scrambleScreen);
         } else if (getScreen() == scrambleScreen && scramble.isFinished()) {
             setScreen(optionsScreen);

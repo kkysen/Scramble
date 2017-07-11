@@ -15,6 +15,7 @@ public class ScrambleStage extends FitStage {
     private int boardSize;
     
     private final TimerBar timer;
+    private boolean isTimed;
     
     private static float center(final float parentSize, final float childSize) {
         return (parentSize - childSize) * 0.5f;
@@ -33,6 +34,7 @@ public class ScrambleStage extends FitStage {
     }
     
     public void createBoard(final int boardSize) {
+        this.boardSize = boardSize;
         if (board != null) {
             board.remove();
         }
@@ -53,15 +55,27 @@ public class ScrambleStage extends FitStage {
                 center(height, boardHeight * scale));
         
         addActor(board);
-        
         System.out.println(board);
-        timer.setDuration(60);
-        timer.restart();
-        System.out.println(timer);
     }
     
-    private void createBoard() {
+    public void resetTimer(final boolean isTimed) {
+        this.isTimed = isTimed;
+        if (isTimed) {
+            timer.setVisible(true);
+            timer.setDuration(50 * boardSize);
+            timer.restart();
+        } else {
+            timer.reset();
+            timer.setVisible(false);
+        }
+    }
+    
+    public void createBoard() {
         createBoard(boardSize);
+    }
+    
+    public void resetTimer() {
+        resetTimer(isTimed);
     }
     
     @Override
@@ -70,9 +84,9 @@ public class ScrambleStage extends FitStage {
             createBoard(5);
         }
         super.act(delta);
-        if (board.isSolved()) {
-            createBoard();
-        }
+        //        if (board.isSolved()) {
+        //            createBoard();
+        //        }
     }
     
     private boolean gameOver() {
