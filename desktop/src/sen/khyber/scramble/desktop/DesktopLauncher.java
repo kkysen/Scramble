@@ -6,6 +6,11 @@ import sen.khyber.scramble.Scramble;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
+/**
+ * 
+ * 
+ * @author Khyber Sen
+ */
 public class DesktopLauncher {
     
     public static void main(final String[] arg) {

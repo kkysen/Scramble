@@ -44,6 +44,7 @@ public class Scramble extends Game {
             scramble.resetTimer(options.isTimed());
             setScreen(scrambleScreen);
         } else if (getScreen() == scrambleScreen && scramble.isFinished()) {
+            
             setScreen(optionsScreen);
         }
     }

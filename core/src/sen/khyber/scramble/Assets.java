@@ -16,8 +16,15 @@ import lombok.experimental.ExtensionMethod;
 @ExtensionMethod({Assets.class})
 public class Assets {
     
-    private static final Path ASSETS = //
-            Paths.get("").toAbsolutePath().getParent().resolve("android").resolve("assets");
+    private static final Path getBaseDir() {
+        Path path = Paths.get("").toAbsolutePath();
+        if (path.getFileName().endsWith("desktop")) {
+            path = path.getParent();
+        }
+        return path;
+    }
+    
+    private static final Path ASSETS = getBaseDir().resolve("android").resolve("assets");
     
     public static FileHandle asset(final String path) {
         return Paths.get(path).asset();

@@ -1,5 +1,6 @@
 package sen.khyber.scramble;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 
@@ -27,6 +28,10 @@ public class TimerBar extends ProgressBar {
         style.knobBefore = style.knob;
         this.duration = duration;
         remaining = duration;
+        System.out.println(style.background);
+        System.out.println(style.knob);
+        System.out.println(style.knobBefore);
+        System.out.println(style.knobAfter);
     }
     
     public TimerBar(final float duration, final boolean vertical, final ProgressBarStyle style) {
@@ -71,6 +76,14 @@ public class TimerBar extends ProgressBar {
     @Override
     public String toString() {
         return "Timer[" + elapsedTime() + " out of " + duration + "]";
+    }
+    
+    @Override
+    public void draw(final Batch batch, final float parentAlpha) {
+        if (((FitStage) getStage()).screen.frameNum % 30 == 0) {
+            System.out.println("drawing " + this);
+        }
+        super.draw(batch, parentAlpha);
     }
     
 }

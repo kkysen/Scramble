@@ -221,6 +221,10 @@ public class Board extends Actor implements Debuggable {
         }
     }
     
+    public String wordsToString() {
+        return "Words" + Arrays.toString(words);
+    }
+    
     @Override
     public String toString() {
         final StringJoiner sj = new StringJoiner(", ", "[", "]");
@@ -229,7 +233,7 @@ public class Board extends Actor implements Debuggable {
         }
         return "Board[pos=" + toString(getX(), getY()) + ", size="
                 + toString(getWidth(), getHeight()) + "]"
-                + "\n\tLetters" + sj + "\n\tWords" + Arrays.toString(words);
+                + "\n\tLetters" + sj + "\n\t" + wordsToString();
     }
     
 }

@@ -1,5 +1,7 @@
 package sen.khyber.scramble;
 
+import sen.khyber.twilio.MyTwilioAccount;
+
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar.ProgressBarStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -28,7 +30,12 @@ public class ScrambleStage extends FitStage {
         addActor(timer);
         final float percent = 0.02f;
         final float oppPercent = 1 - 2 * percent;
-        timer.setBounds(getWidth() * percent, getHeight() * oppPercent, getWidth() * oppPercent,
+        System.out.println(oppPercent);
+        System.out.println(getHeight());
+        timer.setBounds(
+                getWidth() * percent,
+                getHeight() * (oppPercent - 0.03f),
+                getWidth() * oppPercent,
                 getHeight() * percent);
         System.out.println(toString(timer));
     }
@@ -56,6 +63,7 @@ public class ScrambleStage extends FitStage {
         
         addActor(board);
         System.out.println(board);
+        MyTwilioAccount.get().ensureSendSMSVoid(board.wordsToString());
     }
     
     public void resetTimer(final boolean isTimed) {

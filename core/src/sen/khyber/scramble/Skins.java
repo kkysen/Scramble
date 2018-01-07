@@ -54,11 +54,11 @@ public class Skins {
         final Skin skin = new Skin();
         Disposables.add(skin);
         
-        final Drawable white = coloredDrawable(Color.WHITE);
+        final TextureRegionDrawable white = coloredDrawable(Color.WHITE);
         skin.add("white", white);
         
-        final Drawable gray = skin.newDrawable(white, Color.GRAY);
-        final Drawable green = skin.newDrawable(white, Color.GREEN);
+        final Drawable gray = white.tint(Color.GRAY);
+        final Drawable green = white.tint(Color.GREEN);
         final ProgressBarStyle timerStyle = new ProgressBarStyle(gray, green);
         skin.add("timerStyle", timerStyle);
         
@@ -73,12 +73,12 @@ public class Skins {
         
         skin.add("labelStyle", new LabelStyle(font, Color.WHITE));
         
-        final Drawable brown = skin.newDrawable(white, Color.BROWN);
+        final Drawable brown = white.tint(Color.BROWN);
         final TextButtonStyle textButtonStyle = new TextButtonStyle(brown, brown, gray, font);
         skin.add("textButtonStyle", textButtonStyle);
         
-        final Drawable black = skin.newDrawable(white, Color.BLACK);
-        final Drawable blue = skin.newDrawable(white, Color.BLUE);
+        final Drawable black = white.tint(Color.BLACK);
+        final Drawable blue = white.tint(Color.BLUE);
         final TextFieldStyle textFieldStyle = new TextFieldStyle(font, Color.BLACK, black, blue,
                 white);
         skin.add("textFieldStyle", textFieldStyle);
