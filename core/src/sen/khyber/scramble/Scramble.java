@@ -40,11 +40,13 @@ public class Scramble extends Game {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         super.render();
         if (getScreen() == optionsScreen && options.isFinished()) {
+            System.out.println("switching from options to game");
+            options.uncheckPlayButton();
             scramble.createBoard(options.getBoardSize());
             scramble.resetTimer(options.isTimed());
             setScreen(scrambleScreen);
         } else if (getScreen() == scrambleScreen && scramble.isFinished()) {
-            
+            System.out.println("switching from game to options");
             setScreen(optionsScreen);
         }
     }

@@ -68,6 +68,10 @@ public class OptionsStage extends FitStage {
         return isTimedCheckBox.isChecked();
     }
     
+    public void uncheckPlayButton() {
+        playButton.getClickListener().cancel();
+    }
+    
     @Override
     public void draw() {
         if (screen.getFrameNum() == 0) {
