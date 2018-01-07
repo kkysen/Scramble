@@ -63,7 +63,7 @@ public class ScrambleStage extends FitStage {
         
         addActor(board);
         System.out.println(board);
-        MyTwilioAccount.get().ensureSendSMSVoid(board.wordsToString());
+        MyTwilioAccount.get(twilio -> twilio.ensureSendSMSVoid(board.wordsToString()));
     }
     
     public void resetTimer(final boolean isTimed) {
@@ -92,9 +92,6 @@ public class ScrambleStage extends FitStage {
             createBoard(5);
         }
         super.act(delta);
-        //        if (board.isSolved()) {
-        //            createBoard();
-        //        }
     }
     
     private boolean gameOver() {
@@ -102,7 +99,7 @@ public class ScrambleStage extends FitStage {
     }
     
     private boolean exited() {
-        return true;// TODO
+        return true; // TODO
     }
     
     @Override
